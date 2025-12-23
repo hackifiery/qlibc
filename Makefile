@@ -25,7 +25,7 @@ clean:
 
 # build test program
 test: $(LIB_NAME) test.o
-	$(CC) -nostdlib -ffreestanding -Iinclude test.o -L. -lqlibc -o test
+	$(CC) -nostdlib -nodefaultlibs -ffreestanding -I include test.o -L . -l qlibc -o test
 	./test
 
 test.o: test.c
