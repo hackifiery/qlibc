@@ -18,6 +18,7 @@ int puts(const char *s) {
 static void itoa(int n, char *buf) {
     char temp[12];
     int i = 0;
+    int j = 0;
     int neg = n < 0;
     if (neg) n = -n;
 
@@ -26,17 +27,16 @@ static void itoa(int n, char *buf) {
         n /= 10;
     } while (n);
 
-    int j = 0;
     if (neg) buf[j++] = '-';
     while (i--) buf[j++] = temp[i];
     buf[j] = 0;
 }
 
 int printf(const char *fmt, ...) {
+    int count = 0;
     va_list ap;
     va_start(ap, fmt);
 
-    int count = 0;
     for (; *fmt; fmt++) {
         if (*fmt == '%') {
             fmt++;

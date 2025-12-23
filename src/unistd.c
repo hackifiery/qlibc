@@ -60,8 +60,10 @@ void *_brk(void *addr) {
 __attribute__((noreturn))
 void _exit(int status) {
     __asm__ volatile (
-        "mov $60, %rax\n\t"    /* put exit (60) into rax */
-        "syscall\n\t"           /* call it */
+        "mov $60, %%rax\n\t"    /* put exit (60) into rax */
+        "syscall\n\t"          /* call it */
+        : 
+        : "D" (status)
     );
     __builtin_unreachable();
 }

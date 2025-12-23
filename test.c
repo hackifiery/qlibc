@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "unistd.h"
 
 void bubbleSort(int arr[], int n) {
     int i, j, temp;
@@ -22,18 +23,17 @@ void bubbleSort(int arr[], int n) {
 
 int _start() {
     int arr[] = {64, 34, 25, 12, 22, 11, 90};
-
     int n = sizeof(arr) / sizeof(arr[0]);
+    int i;
 
     printf("Original array: ");
-    int i;
     for (i = 0; i < n; i++) {
         printf("%d ", arr[i]);
     }
-    bubbleSort(arr, n);
 
-    printf("\nSorted array: ");
+    bubbleSort(arr, n);
     
+    printf("\nSorted array: ");
     for (i = 0; i < n; i++) {
         printf("%d ", arr[i]);
     }
