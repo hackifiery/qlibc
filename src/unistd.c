@@ -4,7 +4,7 @@
 /* write(fd, buf, count) */
 ssize_t write(int fd, const void *buf, size_t count) {
     long ret;
-    asm volatile (
+    __asm__ volatile (
         "syscall"
         : "=a"(ret)
         : "a"(1),        /* SYS_write */
@@ -16,7 +16,6 @@ ssize_t write(int fd, const void *buf, size_t count) {
     return ret;
 }
 
-/* very small sbrk using brk syscall */
 static char *heap_end;
 
 void *sbrk(intptr_t increment) {
@@ -24,7 +23,7 @@ void *sbrk(intptr_t increment) {
     char *new_end = heap_end + increment;
     long ret;
 
-    asm volatile (
+    __asm__ volatile (
         "syscall"
         : "=a"(ret)
         : "a"(12),       /* SYS_brk */
@@ -39,14 +38,30 @@ void *sbrk(intptr_t increment) {
     return prev;
 }
 
+
+void *_brk(void *addr) {
+    long ret;
+
+    /* syscall number 12 = brk on x86_64 */
+    __asm__ volatile (
+        "mov $12, %%rax\n"   /* SYS_brk */
+        "mov %1, %%rdi\n"    /* new break */
+        "syscall\n"
+        "mov %%rax, %0\n"    /* return value */
+        : "=r"(ret)
+        : "r"(addr)
+        : "%rax", "%rdi", "rcx", "r11", "memory"
+    );
+
+    if (ret == 0) return (void *)-1;
+    return (void *)ret;
+}
+
 __attribute__((noreturn))
 void _exit(int status) {
-    asm volatile (
-        "mov $60, %%rax\n\t"    // System call number for exit (60) into rax
-        "syscall\n\t"           // Invoke the system call
-        :
-        : "D" (status)     // "D" constraint puts status_code into rdi
-        : "%rax", "memory"      // Clobber list: rax is modified, memory might be affected
+    __asm__ volatile (
+        "mov $60, %rax\n\t"    /* put exit (60) into rax */
+        "syscall\n\t"           /* call it */
     );
     __builtin_unreachable();
 }

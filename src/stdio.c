@@ -5,13 +5,13 @@
 
 int putchar(int c) {
     char ch = (char)c;
-    write(1, &ch, 1);  // write to stdout (fd=1)
+    write(1, &ch, 1); /* write to stdout (fd=1) */
     return c;
 }
 int puts(const char *s) {
     size_t len = strlen(s);
     write(1, s, len);
-    write(1, "\n", 1);  // append newline
+    write(1, "\n", 1); /* newline for puts */
     return 0;
 }
 

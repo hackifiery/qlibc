@@ -1,2 +1,7 @@
 /.vscode
 *.out
+**/*.obj
+/obj/
+*.a
+**/*.o
+/test

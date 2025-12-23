@@ -9,14 +9,14 @@ void *malloc(size_t size) {
 
     if (!heap_end)
         heap_end = sbrk(0);
-
+    
     void *p = heap_end;
     heap_end += size;
 
     return p;
 }
 
-/* it just leaks memory... */
+/* it just leaks memory bruh... */
 void free(void *ptr) {
     (void)ptr;
 }
