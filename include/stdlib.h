@@ -4,8 +4,6 @@
 #include "stddef.h"
 #include "stdint.h"
 
-static char *heap_end;
-
 void *malloc(size_t size);
 void  free(void *ptr);
 

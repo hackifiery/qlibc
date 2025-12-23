@@ -1,6 +1,7 @@
 #include "stdio.h"
+#include "unistd.h"
 
-int main(){
-    printf("hi %d", 1);
-    return 0;
+void _start(){
+    printf("Hello, world!");
+    _exit(0);
 }

@@ -1,6 +1,8 @@
 #include "stdlib.h"
 #include "unistd.h"
 
+static char *heap_end;
+
 void *malloc(size_t size) {
     if (size == 0)
         return NULL;
