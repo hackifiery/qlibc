@@ -1,5 +1,5 @@
-# qlibc: minimalist c library
-`qlibc` is a very, very tiny c library I made out of curiosity. It currently defines a very small subset of c headers and functions, some of which I used cheap workarounds to achcieve (e.g. `free` just leaks memory to simulate an actual `free`). It barely manages to run a bubbesort and print the result.
+# qlibc: minimalist c standard library
+`qlibc` is a very, very tiny c std library I made out of curiosity. It currently defines a very small subset of c headers and functions, some of which I used cheap workarounds to achcieve (e.g. `free` just leaks memory to simulate an actual `free`). It barely manages to run a bubbesort and print the result.
 ## Building
 To build qlibc, just run `make all` and it'll give you a `.a` file to link against. If you want to run a file using qlibc, compile it and link it to qlibc. **and make sure to disable the standard library if you have another c library (like glibc) installed**.
 ```
